@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-
+using WorkingTalentTechBooster.Banking;
 using static RestAssured.Dsl;
 
 namespace WorkingTalentTechBooster
@@ -10,7 +10,7 @@ namespace WorkingTalentTechBooster
         [Test]
         public void RequestLoanFor100With10AsDownPayment_ShouldBeAccepted()
         {
-            var loanRequest = new
+            var loanApplication = new LoanApplication
             {
                 Amount = 100,
                 DownPayment = 10,
@@ -18,7 +18,7 @@ namespace WorkingTalentTechBooster
             };
 
             Given()
-                .Body(loanRequest)
+                .Body(loanApplication)
                 .When()
                 .Post("http://localhost:9876/requestLoan")
                 .Then()
@@ -30,7 +30,7 @@ namespace WorkingTalentTechBooster
         [Test]
         public void RequestLoanFor500With50AsDownPayment_ShouldBeAccepted()
         {
-            // Create a new loanRequest with Amount = 500, DownPayment = 50 and FromAccountId = 12345
+            // Create a new loanApplication with Amount = 500, DownPayment = 50 and FromAccountId = 12345
 
             // POST that to the same endpoint
 
@@ -40,7 +40,7 @@ namespace WorkingTalentTechBooster
         [Test]
         public void RequestLoanFor500With10AsDownPayment_ShouldBeDenied()
         {
-            // Create a new loanRequest with Amount = 500, DownPayment = 10 and FromAccountId = 12345
+            // Create a new loanApplication with Amount = 500, DownPayment = 10 and FromAccountId = 12345
 
             // POST that to the same endpoint
 
