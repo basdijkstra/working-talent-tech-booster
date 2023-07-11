@@ -13,7 +13,8 @@ namespace WorkingTalentTechBooster
             var loanRequest = new
             {
                 Amount = 100,
-                DownPayment = 10
+                DownPayment = 10,
+                FromAccountId = 12345
             };
 
             Given()
@@ -29,7 +30,7 @@ namespace WorkingTalentTechBooster
         [Test]
         public void RequestLoanFor500With50AsDownPayment_ShouldBeAccepted()
         {
-            // Create a new loanRequest with Amount = 500 and DownPayment = 50
+            // Create a new loanRequest with Amount = 500, DownPayment = 50 and FromAccountId = 12345
 
             // POST that to the same endpoint
 
@@ -39,7 +40,7 @@ namespace WorkingTalentTechBooster
         [Test]
         public void RequestLoanFor500With10AsDownPayment_ShouldBeDenied()
         {
-            // Create a new loanRequest with Amount = 500 and DownPayment = 10
+            // Create a new loanRequest with Amount = 500, DownPayment = 10 and FromAccountId = 12345
 
             // POST that to the same endpoint
 

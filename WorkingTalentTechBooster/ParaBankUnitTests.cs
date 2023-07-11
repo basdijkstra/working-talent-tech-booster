@@ -7,37 +7,32 @@ namespace WorkingTalentTechBooster
     public class ParaBankUnitTests
     {
         [Test]
-        public void Deposit10ToCheckingAccount_CheckBalance_ShouldBe10()
+        public void LoanApplicationFor1000_DownPayment100_ShouldBeApproved()
         {
-            Account account = new Account(AccountType.Checking);
+            LoanApplication loanApplication = new LoanApplication
+            {
+                Amount = 1000,
+                DownPayment = 100,
+                FromAccountId = 12345
+            };
 
-            account.Deposit(10);
+            LoanApplicationResult result = LoanProcessor.ProcessLoanApplication(loanApplication);
 
-            Assert.That(account.Balance, Is.EqualTo(10));
+            Assert.That(result, Is.EqualTo(LoanApplicationResult.Approved));
         }
 
         [Test]
-        public void Deposit50ToSavingsAccount_CheckBalance_ShouldBe50()
+        public void LoanApplicationFor1000_DownPayment99_ShouldBeDenied()
         {
-            // Create a new Savings account
-            // Deposit 50 into the account
-            // Check that the balance is equal to 50
+            // Write a test that applies for a 1000 dollar loan with a downpayment of 99 deducted from account 12345
+
+            // Check that the loan application result is equal to Denied
         }
 
         [Test]
-        public void CreateSavingsAccount_Deposit40ThenWithdraw20_CheckBalance_ShouldBe20()
+        public void LoanApplicationWithNegativeDownPayment_ShouldThrowException()
         {
-            // Create a new Savings account
-            // First, deposit 40 into the account
-            // Then withdraw 20 from the account
-            // Check that the resulting balance is 20
-        }
-
-        [Test]
-        public void CreateSavingsAccount_Withdraw20_ShouldThrowException()
-        {
-            // Create a new Savings account
-            // Try to withdraw 20 from the account
+            // Create a new LoanApplication with a negative value for the downpayment
             // Check that this results in an ArgumentException
             // (i.e., the test passes when this exception is thrown)
             // Google is your friend here!

@@ -10,9 +10,9 @@ namespace WorkingTalentTechBooster
     {
         private WireMockServer? server;
 
-        private string loanRequest_100_10 = "{\"Amount\":100,\"DownPayment\":10}";
-        private string loanRequest_500_50 = "{\"Amount\":500,\"DownPayment\":50}";
-        private string loanRequest_500_10 = "{\"Amount\":500,\"DownPayment\":10}";
+        private string loanRequest_100_10 = "{\"Amount\":100,\"DownPayment\":10,\"FromAccountId\":12345}";
+        private string loanRequest_500_50 = "{\"Amount\":500,\"DownPayment\":50,\"FromAccountId\":12345}";
+        private string loanRequest_500_10 = "{\"Amount\":500,\"DownPayment\":10,\"FromAccountId\":12345}";
 
         private string responseApproved = "{\"Result\":\"Approved\"}";
         private string responseDenied = "{\"Result\":\"Denied\"}";
