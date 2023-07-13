@@ -27,6 +27,19 @@ namespace WorkingTalentTechBooster
             // Write a test that applies for a 1000 dollar loan with a downpayment of 99 deducted from account 12345
 
             // Check that the loan application result is equal to Denied
+
+            // Note: this one fails because of a bug in the implementation of the ProcessLoanApplication() method!
+
+            LoanApplication loanApplication = new LoanApplication
+            {
+                Amount = 1000,
+                DownPayment = 99,
+                FromAccountId = 12345
+            };
+
+            LoanApplicationResult result = LoanProcessor.ProcessLoanApplication(loanApplication);
+
+            Assert.That(result, Is.EqualTo(LoanApplicationResult.Denied));
         }
 
         [Test]
@@ -36,6 +49,20 @@ namespace WorkingTalentTechBooster
             // Check that this results in an ArgumentException
             // (i.e., the test passes when this exception is thrown)
             // Google is your friend here!
+
+            LoanApplication loanApplication = new LoanApplication
+            {
+                Amount = 1000,
+                DownPayment = -100,
+                FromAccountId = 12345
+            };
+
+            ArgumentException? ae = Assert.Throws<ArgumentException>(() =>
+            {
+                LoanApplicationResult result = LoanProcessor.ProcessLoanApplication(loanApplication);
+            });
+
+            Assert.That(ae!.Message, Is.EqualTo("You cannot provide a negative down payment"));
         }
     }
 }

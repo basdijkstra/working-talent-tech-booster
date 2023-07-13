@@ -35,6 +35,22 @@ namespace WorkingTalentTechBooster
             // POST that to the same endpoint
 
             // Check that the Result is equal to Approved
+
+            var loanApplication = new LoanApplication
+            {
+                Amount = 500,
+                DownPayment = 50,
+                FromAccountId = 12345
+            };
+
+            Given()
+                .Body(loanApplication)
+                .When()
+                .Post("http://localhost:9876/requestLoan")
+                .Then()
+                .StatusCode(201)
+                .And()
+                .Body("Result", NHamcrest.Is.EqualTo("Approved"));
         }
 
         [Test]
@@ -45,10 +61,28 @@ namespace WorkingTalentTechBooster
             // POST that to the same endpoint
 
             // Check that the Result is equal to Denied
+
+            var loanApplication = new LoanApplication
+            {
+                Amount = 500,
+                DownPayment = 10,
+                FromAccountId = 12345
+            };
+
+            Given()
+                .Body(loanApplication)
+                .When()
+                .Post("http://localhost:9876/requestLoan")
+                .Then()
+                .StatusCode(201)
+                .And()
+                .Body("Result", NHamcrest.Is.EqualTo("Denied"));
         }
 
-        [Test]
-        public void IsntThereABetterWay()
+        [TestCase(100, 10, "Approved", TestName = "A request for a $100 loan with a $10 down payment should be approved")]
+        [TestCase(500, 50, "Approved", TestName = "A request for a $500 loan with a $50 down payment should be approved")]
+        [TestCase(500, 10, "Denied", TestName = "A request for a $500 loan with a $10 down payment should be approved")]
+        public void IsntThereABetterWay(int loanAmount, int downPayment, string expectedResult)
         {
             // The tests above perform the same action (submitting a loan request, then
             // checking the result), just with different data values (arguments).
@@ -58,6 +92,22 @@ namespace WorkingTalentTechBooster
             // Isn't there a better way?
 
             // Hint: https://www.ontestautomation.com/parameterizing-tests-in-rest-assured-net/
+
+            var loanApplication = new LoanApplication
+            {
+                Amount = loanAmount,
+                DownPayment = downPayment,
+                FromAccountId = 12345
+            };
+
+            Given()
+                .Body(loanApplication)
+                .When()
+                .Post("http://localhost:9876/requestLoan")
+                .Then()
+                .StatusCode(201)
+                .And()
+                .Body("Result", NHamcrest.Is.EqualTo(expectedResult));
         }
     }
 }
